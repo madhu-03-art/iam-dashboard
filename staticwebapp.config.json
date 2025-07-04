@@ -1,0 +1,25 @@
+{
+  "routes": [
+    {
+      "route": "/.auth/login/aad",
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/.auth/me",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/",
+      "rewrite": "/index.html"
+    }
+  ],
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com"
+        }
+      }
+    }
+  }
+}
