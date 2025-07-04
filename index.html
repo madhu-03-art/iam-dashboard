@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IAM User Dashboard</title>
+<style>
+ body { font-family: Arial; margin: 40px; }
+ #user-info { margin-top: 20px; padding: 20px; border: 1px solid #ddd; }
+</style>
+</head>
+<body>
+<h1>🎯 IAM User Dashboard</h1>
+<p>This dashboard shows your identity info after signing in with Azure AD.</p>
+<button id="login">Login</button>
+<div id="user-info" style="display:none;">
+  <h3>Welcome, <span id="name"></span></h3>
+  <p>Email: <span id="email"></span></p>
+</div>
+<script>
+ document.getElementById('login').onclick = () => {
+   window.location.href = '.auth/login/aad?prompt=select_account';
+ };
+ window.onload = async () => {
+   if (window.location.pathname === '/.auth/login/google' ||
+       window.location.search.includes('code=')) {
+     const resp = await fetch('/.auth/me');
+     const tokens = await resp.json();
+     const user = tokens.clientPrincipal;
+     if (user) {
+       document.getElementById('login').style.display = 'none';
+       document.getElementById('user-info').style.display = 'block';
+       document.getElementById('name').innerText = user.userDetails;
+       document.getElementById('email').innerText = user.identityProvider + ':' + user.userId;
+     }
+   }
+ };
+</script>
+</body>
+</html>
