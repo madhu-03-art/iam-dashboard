@@ -1,5 +1,5 @@
 {
-  "routes": [
+  "routes": {
     {
       "route": "/",
       "rewrite": "/index.html"
@@ -20,7 +20,7 @@
       "route": "/auth/*",
       "statusCode": 200
     }
-  ],
+    },
   "responseOverrides": {
     "401": {
       "redirect": "/auth/login/aad",
