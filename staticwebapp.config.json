@@ -18,10 +18,10 @@
     },
     {
       "route": "/auth/*",
-      "statusCode": 200
+      "rewrite": "/index.html"
     },
     {
-      "route": "/.auth/login/aad/callback*",
+      "route": "/.auth/login/aad/callback",
       "rewrite": "/index.html"
     }
   ],
