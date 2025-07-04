@@ -1,25 +1,16 @@
 {
   "routes": [
     {
-      "route": "/.auth/login/aad",
-      "allowedRoles": ["anonymous", "authenticated"]
+      "route": "/",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/auth/login/aad",
+      "statusCode": 200
     },
     {
       "route": "/.auth/me",
-      "allowedRoles": ["authenticated"]
-    },
-    {
-      "route": "/",
-      "rewrite": "/index.html"
+      "statusCode": 200
     }
-  ],
-  "auth": {
-    "identityProviders": {
-      "azureActiveDirectory": {
-        "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com"
-        }
-      }
-    }
-  }
+  ]
 }
