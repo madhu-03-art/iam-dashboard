@@ -5,10 +5,6 @@
       "rewrite": "/index.html"
     },
     {
-      "route": "/index.html",
-      "allowedRoles": ["authenticated"]
-    },
-    {
       "route": "/auth/login/aad",
       "statusCode": 200
     },
@@ -18,11 +14,7 @@
     },
     {
       "route": "/auth/*",
-      "rewrite": "/index.html"
-    },
-    {
-      "route": "/.auth/login/aad/callback",
-      "rewrite": "/index.html"
+      "statusCode": 200
     }
   ],
   "responseOverrides": {
