@@ -13,16 +13,16 @@
       "statusCode": 200
     },
     {
-      "route": "/auth/login/aad/callback",
-      "rewrite": "/index.html"
-    },
-    {
       "route": "/.auth/me",
       "statusCode": 200
     },
     {
       "route": "/auth/*",
       "statusCode": 200
+    },
+    {
+      "route": "/.auth/login/aad/callback*",
+      "rewrite": "/index.html"
     }
   ],
   "responseOverrides": {
