@@ -42,29 +42,17 @@
     </div>
   </div>
 
-<script>
-  window.onload = async () => {
-    try {
+  <script>
+    window.onload = async () => {
       const res = await fetch("/.auth/me");
       const data = await res.json();
-      const loginButton = document.querySelector("button[onclick*='login']");
-      const userInfo = document.getElementById("user-info");
-
       if (data.clientPrincipal) {
         const user = data.clientPrincipal;
         document.getElementById("username").innerText = user.userDetails;
         document.getElementById("useremail").innerText = user.identityProvider + " | " + user.userId;
-        loginButton.style.display = "none"; // hide login button
-        userInfo.style.display = "block";   // show user info
-      } else {
-        loginButton.style.display = "block"; // show login button
-        userInfo.style.display = "none";     // hide user info
+        document.getElementById("user-info").style.display = "block";
       }
-    } catch (err) {
-      console.error("Auth check failed:", err);
-    }
-  };
-</script>
->
+    };
+  </script>
 </body>
 </html>
