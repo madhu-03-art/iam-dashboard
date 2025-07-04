@@ -1,39 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>IAM User Dashboard</title>
-<style>
- body { font-family: Arial; margin: 40px; }
- #user-info { margin-top: 20px; padding: 20px; border: 1px solid #ddd; }
-</style>
+  <meta charset="UTF-8">
+  <title>IAM User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #0078d4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #user-info {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-<h1>🎯 IAM User Dashboard</h1>
-<p>This dashboard shows your identity info after signing in with Azure AD.</p>
-<button id="login">Login</button>
-<div id="user-info" style="display:none;">
-  <h3>Welcome, <span id="name"></span></h3>
-  <p>Email: <span id="email"></span></p>
-</div>
-<script>
- document.getElementById('login').onclick = () => {
-   window.location.href = '.auth/login/aad?prompt=select_account';
- };
- window.onload = async () => {
-   if (window.location.pathname === '/.auth/login/google' ||
-       window.location.search.includes('code=')) {
-     const resp = await fetch('/.auth/me');
-     const tokens = await resp.json();
-     const user = tokens.clientPrincipal;
-     if (user) {
-       document.getElementById('login').style.display = 'none';
-       document.getElementById('user-info').style.display = 'block';
-       document.getElementById('name').innerText = user.userDetails;
-       document.getElementById('email').innerText = user.identityProvider + ':' + user.userId;
-     }
-   }
- };
-</script>
+  <div class="card">
+    <h2>🔐 IAM User Dashboard</h2>
+    <p>This web app uses Microsoft Entra ID (Azure AD) authentication.</p>
+    <button onclick="window.location.href='/auth/login/aad'">Login with Microsoft</button>
+
+    <div id="user-info" style="display:none;">
+      <h3>Welcome, <span id="username"></span></h3>
+      <p>Email/ID: <span id="useremail"></span></p>
+      <button onclick="window.location.href='/auth/logout'">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    window.onload = async () => {
+      const res = await fetch("/.auth/me");
+      const data = await res.json();
+      if (data.clientPrincipal) {
+        const user = data.clientPrincipal;
+        document.getElementById("username").innerText = user.userDetails;
+        document.getElementById("useremail").innerText = user.identityProvider + " | " + user.userId;
+        document.getElementById("user-info").style.display = "block";
+      }
+    };
+  </script>
 </body>
 </html>
