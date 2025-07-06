@@ -42,17 +42,7 @@
     </div>
   </div>
 
-  <script>
-    window.onload = async () => {
-      const res = await fetch("/.auth/me");
-      const data = await res.json();
-      if (data.clientPrincipal) {
-        const user = data.clientPrincipal;
-        document.getElementById("username").innerText = user.userDetails;
-        document.getElementById("useremail").innerText = user.identityProvider + " | " + user.userId;
-        document.getElementById("user-info").style.display = "block";
-      }
-    };
-  </script>
+  <!-- Link external JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
